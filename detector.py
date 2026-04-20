@@ -1,6 +1,6 @@
 from ultralytics import YOLO
-import cv2
 import numpy as np
+from PIL import Image, ImageDraw, ImageFont
 
 VEHICLE_CLASSES = {
     2: "Car",
@@ -11,11 +11,11 @@ VEHICLE_CLASSES = {
 }
 
 COLORS = {
-    "Car":        (30,  144, 255),
-    "Motorcycle": (0,   255, 127),
-    "Bus":        (220,  20,  60),
-    "Truck":      (148,   0, 211),
-    "Bicycle":    (255, 165,   0),
+    "Car":        "#1D4ED8",
+    "Motorcycle": "#D4AF37",
+    "Bus":        "#DC143C",
+    "Truck":      "#EAD7A1",
+    "Bicycle":    "#FAFAFA",
 }
 
 class VehicleDetector:
@@ -23,10 +23,12 @@ class VehicleDetector:
         self.model = YOLO("yolov8n.pt")
         self.model.conf = confidence
 
-    def detect(self, image: np.ndarray):
-        results = self.model(image, verbose=False)[0]
-        detections = []
+    def detect(self, image: Image.Image):
+        img_array = np.array(image)
+        results = self.model(img_array, verbose=False)[0]
         annotated = image.copy()
+        draw = ImageDraw.Draw(annotated)
+        detections = []
 
         for box in results.boxes:
             cls_id = int(box.cls[0])
@@ -37,12 +39,11 @@ class VehicleDetector:
             x1, y1, x2, y2 = map(int, box.xyxy[0])
             color = COLORS[label]
 
-            cv2.rectangle(annotated, (x1, y1), (x2, y2), color, 2)
+            draw.rectangle([x1, y1, x2, y2], outline=color, width=3)
             text = f"{label} {conf:.0%}"
-            tw = len(text) * 11
-            cv2.rectangle(annotated, (x1, y1 - 26), (x1 + tw, y1), color, -1)
-            cv2.putText(annotated, text, (x1 + 4, y1 - 7),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 2)
+            draw.rectangle([x1, y1 - 24, x1 + len(text) * 9, y1], fill=color)
+            draw.text((x1 + 4, y1 - 20), text, fill="#0C0C0C")
+
             detections.append({
                 "label": label,
                 "confidence": conf,
