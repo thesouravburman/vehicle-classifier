@@ -221,14 +221,20 @@ with st.sidebar:
         Samsung R&D Innovation Campus<br/>
         Brainware University · CSE '27
     </div>
-    <div style="margin-top:0.9rem;display:flex;gap:12px;">
-        <a href="https://github.com/thesouravburman"
-           style="color:#1D6FF0;font-size:0.78rem;font-family:Montserrat,sans-serif;
-           font-weight:700;letter-spacing:0.05em;text-decoration:none;">GITHUB</a>
-        <span style="color:#333;">·</span>
-        <a href="https://linkedin.com/in/sourav-burman"
-           style="color:#00C896;font-size:0.78rem;font-family:Montserrat,sans-serif;
-           font-weight:700;letter-spacing:0.05em;text-decoration:none;">LINKEDIN</a>
+    <div style="margin-top:0.9rem;display:flex;flex-direction:column;gap:8px;">
+        <a href="mailto:thesouravburman@gmail.com"
+           style="color:#D4AF37;font-size:0.78rem;font-family:Montserrat,sans-serif;
+           font-weight:700;letter-spacing:0.05em;text-decoration:none;">
+           ✉ thesouravburman@gmail.com</a>
+        <div style="display:flex;gap:12px;">
+            <a href="https://github.com/thesouravburman"
+               style="color:#1D6FF0;font-size:0.78rem;font-family:Montserrat,sans-serif;
+               font-weight:700;letter-spacing:0.05em;text-decoration:none;">GITHUB</a>
+            <span style="color:#333;">·</span>
+            <a href="https://linkedin.com/in/sourav-burman"
+               style="color:#00C896;font-size:0.78rem;font-family:Montserrat,sans-serif;
+               font-weight:700;letter-spacing:0.05em;text-decoration:none;">LINKEDIN</a>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
