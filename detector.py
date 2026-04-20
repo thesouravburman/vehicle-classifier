@@ -18,14 +18,31 @@ COLORS = {
     "Bicycle":    "#FAFAFA",
 }
 
+HEX_TO_RGB = {
+    "#1D4ED8": (29, 78, 216),
+    "#D4AF37": (212, 175, 55),
+    "#DC143C": (220, 20, 60),
+    "#EAD7A1": (234, 215, 161),
+    "#FAFAFA": (250, 250, 250),
+}
+
 class VehicleDetector:
-    def __init__(self, confidence: float = 0.4):
-        self.model = YOLO("yolov8n.pt")
-        self.model.conf = confidence
+    def __init__(self, confidence: float = 0.25):
+        # yolov8s = small model, much more accurate than nano
+        self.model = YOLO("yolov8s.pt")
+        self.confidence = confidence
 
     def detect(self, image: Image.Image):
+        # Resize large images for faster processing while keeping quality
+        max_size = 1280
+        w, h = image.size
+        if max(w, h) > max_size:
+            scale = max_size / max(w, h)
+            image = image.resize((int(w * scale), int(h * scale)), Image.LANCZOS)
+
         img_array = np.array(image)
-        results = self.model(img_array, verbose=False)[0]
+        results = self.model(img_array, conf=self.confidence, verbose=False)[0]
+
         annotated = image.copy()
         draw = ImageDraw.Draw(annotated)
         detections = []
@@ -37,12 +54,20 @@ class VehicleDetector:
             label = VEHICLE_CLASSES[cls_id]
             conf  = float(box.conf[0])
             x1, y1, x2, y2 = map(int, box.xyxy[0])
-            color = COLORS[label]
+            color_hex = COLORS[label]
+            color_rgb = HEX_TO_RGB[color_hex]
 
-            draw.rectangle([x1, y1, x2, y2], outline=color, width=3)
-            text = f"{label} {conf:.0%}"
-            draw.rectangle([x1, y1 - 24, x1 + len(text) * 9, y1], fill=color)
-            draw.text((x1 + 4, y1 - 20), text, fill="#0C0C0C")
+            # Thick bounding box
+            draw.rectangle([x1, y1, x2, y2], outline=color_rgb, width=4)
+
+            # Label background
+            text = f"{label}  {conf:.0%}"
+            text_w = len(text) * 10
+            text_h = 28
+            draw.rectangle([x1, y1 - text_h, x1 + text_w, y1], fill=color_rgb)
+
+            # Label text — black on colored background
+            draw.text((x1 + 5, y1 - text_h + 5), text, fill=(10, 10, 10))
 
             detections.append({
                 "label": label,
@@ -50,4 +75,6 @@ class VehicleDetector:
                 "bbox": (x1, y1, x2, y2)
             })
 
+        # Sort by confidence descending
+        detections.sort(key=lambda x: x["confidence"], reverse=True)
         return annotated, detections
