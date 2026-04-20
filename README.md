@@ -3,8 +3,10 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Samsung-R%26D%20Project-1428A0?style=for-the-badge&logo=samsung&logoColor=white"/>
   <img src="https://img.shields.io/badge/YOLOv8-Powered-FF6B6B?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Streamlit-Live%20App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+  <a href="https://vehicles-classifier.streamlit.app">
+    <img src="https://img.shields.io/badge/🌐 Live Demo-Click Here-FF4B4B?style=for-the-badge"/>
+  </a>
 </p>
 
 <p align="center">
@@ -16,20 +18,21 @@
 
 ## 🌐 Live Demo
 
-> **👉 [Click here to open the live web app](https://thesouravburman-vehicle-classifier.streamlit.app)**
+# 👉 [https://vehicles-classifier.streamlit.app](https://vehicles-classifier.streamlit.app)
 
 Upload any traffic or road image and instantly see:
-- Vehicles detected with coloured bounding boxes
-- Confidence scores for each detection
-- Full analytics dashboard with charts
-- Downloadable annotated output image
+- ✅ Vehicles detected with coloured bounding boxes
+- ✅ Confidence scores for each detection
+- ✅ Full analytics dashboard with bar charts
+- ✅ Complete detection details table
+- ✅ Downloadable annotated output image
 
 ---
 
 ## 🎯 What It Detects
 
-| Vehicle | Color Code |
-|---------|-----------|
+| Vehicle | Colour |
+|---------|--------|
 | 🚗 Car | Blue |
 | 🏍️ Motorcycle | Green |
 | 🚌 Bus | Red |
@@ -46,7 +49,7 @@ Upload any traffic or road image and instantly see:
 | Web Framework | Streamlit |
 | Computer Vision | OpenCV |
 | Charts | Plotly |
-| Language | Python 3.10+ |
+| Language | Python 3.11 |
 
 ---
 
