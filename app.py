@@ -15,7 +15,6 @@ st.set_page_config(
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@400;500&display=swap');
-
 html, body, [class*="css"] {
     font-family: 'Poppins', sans-serif;
     background-color: #0C0C0C;
@@ -140,7 +139,6 @@ hr { border-color: #1f1f1f !important; }
 </style>
 """, unsafe_allow_html=True)
 
-# ── Brand Header ───────────────────────────────────
 st.markdown("""
 <div style="display:flex;align-items:center;justify-content:space-between;
      padding:18px 0 22px 0;border-bottom:1px solid #D4AF3733;margin-bottom:32px;">
@@ -153,17 +151,14 @@ st.markdown("""
         </div>
     </div>
     <div style="display:flex;align-items:center;gap:12px;">
-        <span class="samsung-badge">
-            ▣ SAMSUNG &nbsp; R&D PROJECT
-        </span>
+        <span class="samsung-badge">▣ SAMSUNG &nbsp; R&D PROJECT</span>
         <div style="font-family:'Montserrat',sans-serif;font-size:0.62rem;
              color:#D4AF37;opacity:0.35;letter-spacing:0.12em;">⬡ VEHICLE CLASSIFIER</div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# ── Page Title ─────────────────────────────────────
-col_title, col_stats = st.columns([2, 1])
+col_title, _ = st.columns([2, 1])
 with col_title:
     st.markdown("""
     <div style="margin-bottom:2rem;">
@@ -179,9 +174,7 @@ with col_title:
     </div>
     """, unsafe_allow_html=True)
 
-# ── Sidebar ────────────────────────────────────────
 with st.sidebar:
-    # Samsung badge in sidebar too
     st.markdown("""
     <div style="margin-bottom:1.2rem;">
         <span class="samsung-badge" style="font-size:0.68rem;">▣ SAMSUNG &nbsp; R&D PROJECT</span>
@@ -198,50 +191,44 @@ with st.sidebar:
     """, unsafe_allow_html=True)
 
     st.markdown('<div class="section-label">Vehicle Classes</div>', unsafe_allow_html=True)
-
-    classes = [
-        ("🚗", "Car",          "#1D6FF0"),
-        ("🏍️", "Motorcycle",  "#00C896"),
-        ("🚌", "Bus",          "#FF4757"),
-        ("🚛", "Truck / SUV",  "#FFA502"),
-        ("🚲", "Bicycle",      "#A855F7"),
-    ]
-    for icon, name, color in classes:
-        st.markdown(f'''
-        <span class="badge-class"
+    for icon, name, color in [
+        ("🚗","Car","#1D6FF0"),("🏍️","Motorcycle","#00C896"),
+        ("🚌","Bus","#FF4757"),("🚛","Truck / SUV","#FFA502"),("🚲","Bicycle","#A855F7")
+    ]:
+        st.markdown(f'''<span class="badge-class"
             style="background:{color}18;color:{color};border:1px solid {color}55;">
-            {icon} {name}
-        </span>''', unsafe_allow_html=True)
+            {icon} {name}</span>''', unsafe_allow_html=True)
 
     st.markdown('<div class="section-label" style="margin-top:1.5rem;">About</div>', unsafe_allow_html=True)
     st.markdown("""
-    <div style="font-size:0.82rem;color:#AAA;line-height:2.1;">
+    <div style="font-size:0.82rem;color:#AAA;line-height:2.2;">
         <span style="color:#D4AF37;font-weight:700;font-family:Montserrat,sans-serif;">
         Sourav Burman</span><br/>
         Samsung R&D Innovation Campus<br/>
         Brainware University · CSE '27
     </div>
-    <div style="margin-top:0.9rem;display:flex;gap:12px;">
-        <a href="https://github.com/thesouravburman"
-           style="color:#1D6FF0;font-size:0.78rem;font-family:Montserrat,sans-serif;
-           font-weight:700;letter-spacing:0.05em;text-decoration:none;">GITHUB</a>
-        <span style="color:#333;">·</span>
-        <a href="https://linkedin.com/in/sourav-burman"
-           style="color:#00C896;font-size:0.78rem;font-family:Montserrat,sans-serif;
-           font-weight:700;letter-spacing:0.05em;text-decoration:none;">LINKEDIN</a>
+    <div style="margin-top:1rem;display:flex;flex-direction:column;gap:8px;">
+        <a href="mailto:thesouravburman@gmail.com"
+           style="color:#FF4757;font-size:0.78rem;font-family:Montserrat,sans-serif;
+           font-weight:700;letter-spacing:0.05em;text-decoration:none;">
+           ✉ THESOURAVBURMAN@GMAIL.COM</a>
+        <div style="display:flex;gap:12px;">
+            <a href="https://github.com/thesouravburman"
+               style="color:#1D6FF0;font-size:0.78rem;font-family:Montserrat,sans-serif;
+               font-weight:700;letter-spacing:0.05em;text-decoration:none;">GITHUB</a>
+            <span style="color:#333;">·</span>
+            <a href="https://linkedin.com/in/sourav-burman"
+               style="color:#00C896;font-size:0.78rem;font-family:Montserrat,sans-serif;
+               font-weight:700;letter-spacing:0.05em;text-decoration:none;">LINKEDIN</a>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-# ── Tabs ───────────────────────────────────────────
 tab1, tab2, tab3 = st.tabs(["  🔍 DETECTION  ", "  ⚙️ HOW IT WORKS  ", "  📋 PROJECT INFO  "])
 
 with tab1:
-    uploaded = st.file_uploader(
-        "Upload a traffic or dash-cam image",
-        type=["jpg", "jpeg", "png"],
-        help="Supports JPG and PNG up to 200MB"
-    )
-
+    uploaded = st.file_uploader("Upload a traffic or dash-cam image",
+                                type=["jpg","jpeg","png"])
     if not uploaded:
         st.markdown("""
         <div style="border:2px dashed #D4AF3755;border-radius:14px;padding:3.5rem 2rem;
@@ -262,12 +249,10 @@ with tab1:
 
         col1, col2 = st.columns(2, gap="medium")
         with col1:
-            st.markdown('<div class="img-label" style="color:#888;">Original Image</div>',
-                        unsafe_allow_html=True)
+            st.markdown('<div class="img-label" style="color:#888;">Original Image</div>', unsafe_allow_html=True)
             st.image(image, use_column_width=True)
         with col2:
-            st.markdown('<div class="img-label" style="color:#D4AF37;">Detected Vehicles</div>',
-                        unsafe_allow_html=True)
+            st.markdown('<div class="img-label" style="color:#D4AF37;">Detected Vehicles</div>', unsafe_allow_html=True)
             st.image(annotated, use_column_width=True)
 
         st.markdown("<br>", unsafe_allow_html=True)
@@ -277,9 +262,9 @@ with tab1:
             for d in detections:
                 counts[d["label"]] = counts.get(d["label"], 0) + 1
             avg_conf = sum(d["confidence"] for d in detections) / len(detections)
-            top_conf = detections[0]["confidence"] if detections else 0
+            top_conf = detections[0]["confidence"]
 
-            c1, c2, c3, c4 = st.columns(4)
+            c1,c2,c3,c4 = st.columns(4)
             with c1: st.metric("Total Detected", len(detections))
             with c2: st.metric("Avg Confidence", f"{avg_conf:.0%}")
             with c3: st.metric("Vehicle Types", len(counts))
@@ -287,44 +272,32 @@ with tab1:
 
             st.markdown("<br>", unsafe_allow_html=True)
             col_chart, col_table = st.columns([1.1, 0.9], gap="medium")
-
-            color_map = {
-                "Car":        "#1D6FF0",
-                "Motorcycle": "#00C896",
-                "Bus":        "#FF4757",
-                "Truck / SUV":"#FFA502",
-                "Bicycle":    "#A855F7",
-            }
+            color_map = {"Car":"#1D6FF0","Motorcycle":"#00C896","Bus":"#FF4757",
+                         "Truck / SUV":"#FFA502","Bicycle":"#A855F7"}
 
             with col_chart:
                 fig = go.Figure(go.Bar(
-                    x=list(counts.keys()),
-                    y=list(counts.values()),
+                    x=list(counts.keys()), y=list(counts.values()),
                     marker_color=[color_map.get(k,"#D4AF37") for k in counts.keys()],
-                    marker_line_color="#0C0C0C",
-                    marker_line_width=2,
-                    text=list(counts.values()),
-                    textposition="outside",
+                    marker_line_color="#0C0C0C", marker_line_width=2,
+                    text=list(counts.values()), textposition="outside",
                     textfont=dict(color="#FAFAFA", family="Montserrat", size=13)
                 ))
                 fig.update_layout(
                     title=dict(text="VEHICLES BY TYPE",
-                        font=dict(family="Montserrat", color="#D4AF37", size=12), x=0),
-                    paper_bgcolor="#0C0C0C",
-                    plot_bgcolor="#111",
-                    font=dict(color="#FAFAFA", family="Poppins"),
-                    showlegend=False,
-                    margin=dict(t=40, b=10, l=10, r=10),
+                        font=dict(family="Montserrat",color="#D4AF37",size=12),x=0),
+                    paper_bgcolor="#0C0C0C", plot_bgcolor="#111",
+                    font=dict(color="#FAFAFA",family="Poppins"),
+                    showlegend=False, margin=dict(t=40,b=10,l=10,r=10),
                     xaxis=dict(gridcolor="#1a1a1a",
-                        tickfont=dict(family="Montserrat", color="#AAA", size=11)),
-                    yaxis=dict(gridcolor="#1a1a1a", tickfont=dict(color="#444")),
+                        tickfont=dict(family="Montserrat",color="#AAA",size=11)),
+                    yaxis=dict(gridcolor="#1a1a1a",tickfont=dict(color="#444")),
                     bargap=0.35,
                 )
                 st.plotly_chart(fig, use_container_width=True)
 
             with col_table:
-                st.markdown('<div class="img-label" style="color:#888;margin-bottom:8px;">Detection Details</div>',
-                            unsafe_allow_html=True)
+                st.markdown('<div class="img-label" style="color:#888;margin-bottom:8px;">Detection Details</div>', unsafe_allow_html=True)
                 df = pd.DataFrame([{
                     "Vehicle": d["label"],
                     "Confidence": f"{d['confidence']:.1%}",
@@ -349,15 +322,14 @@ with tab1:
 
 with tab2:
     st.markdown("<h2 style='margin-bottom:1.5rem;'>HOW IT WORKS</h2>", unsafe_allow_html=True)
-    steps = [
-        ("01", "INPUT",          "🖼️",  "#1D6FF0", "Upload any traffic or dash-cam image in JPG or PNG format"),
-        ("02", "PREPROCESSING",  "⚙️",  "#00C896", "Image is resized and optimised for the YOLOv8 model"),
-        ("03", "DETECTION",      "🔍",  "#D4AF37", "YOLOv8s scans every region of the image in a single pass"),
-        ("04", "CLASSIFICATION", "🏷️",  "#FFA502", "Each object is assigned a vehicle class and confidence score"),
-        ("05", "ANNOTATION",     "✏️",  "#FF4757", "Coloured bounding boxes and labels drawn on original image"),
-        ("06", "ANALYTICS",      "📊",  "#A855F7", "Full vehicle count breakdown and statistics generated"),
-    ]
-    for num, title, icon, color, desc in steps:
+    for num, title, icon, color, desc in [
+        ("01","INPUT","🖼️","#1D6FF0","Upload any traffic or dash-cam image in JPG or PNG format"),
+        ("02","PREPROCESSING","⚙️","#00C896","Image is resized and optimised for the YOLOv8 model"),
+        ("03","DETECTION","🔍","#D4AF37","YOLOv8s scans every region of the image in a single pass"),
+        ("04","CLASSIFICATION","🏷️","#FFA502","Each object is assigned a vehicle class and confidence score"),
+        ("05","ANNOTATION","✏️","#FF4757","Coloured bounding boxes and labels drawn on original image"),
+        ("06","ANALYTICS","📊","#A855F7","Full vehicle count breakdown and statistics generated"),
+    ]:
         st.markdown(f"""
         <div class="card" style="display:flex;align-items:center;gap:1.4rem;
              margin:0.3rem 0;border-left:3px solid {color};">
@@ -387,7 +359,7 @@ with tab2:
         at <span style="color:#FFA502;font-weight:600;">30+ FPS</span> on GPU hardware.
         <br/><br/>
         <span style="color:#FF4757;font-size:0.8rem;">
-        Note: SUVs are classified as Truck/SUV — this is standard COCO dataset behaviour
+        Note: SUVs are classified as Truck/SUV — standard COCO dataset behaviour
         where large passenger vehicles share the truck category.</span>
         </p>
     </div>
@@ -402,14 +374,14 @@ with tab3:
             <div style="font-family:'Montserrat',sans-serif;font-weight:800;color:#1D6FF0;
                  font-size:0.75rem;letter-spacing:0.12em;margin-bottom:14px;">BACKGROUND</div>
             <div style="color:#888;font-size:0.85rem;line-height:2.3;">
-                <span style="color:#EAD7A1;">Venue</span>
-                &nbsp;—&nbsp; Samsung R&D Innovation Campus, Kolkata<br/>
-                <span style="color:#EAD7A1;">Programme</span>
-                &nbsp;—&nbsp; AI & API Integration<br/>
-                <span style="color:#EAD7A1;">Duration</span>
-                &nbsp;—&nbsp; Sept – Nov 2025<br/>
-                <span style="color:#EAD7A1;">Team</span>
-                &nbsp;—&nbsp; 4 members
+                <span style="color:#EAD7A1;">Venue</span> &nbsp;—&nbsp;
+                Samsung R&D Innovation Campus, Kolkata<br/>
+                <span style="color:#EAD7A1;">Programme</span> &nbsp;—&nbsp;
+                AI & API Integration<br/>
+                <span style="color:#EAD7A1;">Duration</span> &nbsp;—&nbsp;
+                Sept – Nov 2025<br/>
+                <span style="color:#EAD7A1;">Developer</span> &nbsp;—&nbsp;
+                Sourav Burman
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -419,41 +391,54 @@ with tab3:
             <div style="font-family:'Montserrat',sans-serif;font-weight:800;color:#00C896;
                  font-size:0.75rem;letter-spacing:0.12em;margin-bottom:14px;">PERFORMANCE</div>
             <div style="color:#888;font-size:0.85rem;line-height:2.3;">
-                <span style="color:#EAD7A1;">Model</span>
-                &nbsp;—&nbsp; YOLOv8s (Ultralytics)<br/>
-                <span style="color:#EAD7A1;">Accuracy</span>
-                &nbsp;—&nbsp; 90%+ mAP across all classes<br/>
-                <span style="color:#EAD7A1;">Speed</span>
-                &nbsp;—&nbsp; 30+ FPS on GPU hardware<br/>
-                <span style="color:#EAD7A1;">Classes</span>
-                &nbsp;—&nbsp; 5 vehicle types
+                <span style="color:#EAD7A1;">Model</span> &nbsp;—&nbsp;
+                YOLOv8s (Ultralytics)<br/>
+                <span style="color:#EAD7A1;">Accuracy</span> &nbsp;—&nbsp;
+                90%+ mAP across all classes<br/>
+                <span style="color:#EAD7A1;">Speed</span> &nbsp;—&nbsp;
+                30+ FPS on GPU hardware<br/>
+                <span style="color:#EAD7A1;">Classes</span> &nbsp;—&nbsp;
+                5 vehicle types
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<br><h3 style='margin-bottom:1rem;'>TEAM</h3>", unsafe_allow_html=True)
-    team = [
-        ("Sourav Kumar Burman", "AI Pipeline & API Integration", "#D4AF37"),
-        ("Sathi Santra",        "Model Training & Evaluation",   "#1D6FF0"),
-        ("Shovan Mondal",       "Video Processing",              "#00C896"),
-        ("Tulika Adak",         "Visualisation & Reporting",     "#FF4757"),
-    ]
-    cols = st.columns(4, gap="small")
-    for col, (name, role, color) in zip(cols, team):
-        with col:
-            st.markdown(f"""
-            <div class="card" style="text-align:center;padding:1rem 0.8rem;border-top:2px solid {color};">
-                <div style="width:42px;height:42px;border-radius:50%;
-                     background:{color}22;border:2px solid {color}66;
-                     display:flex;align-items:center;justify-content:center;
-                     margin:0 auto 10px;font-family:Montserrat,sans-serif;
-                     font-weight:800;font-size:1rem;color:{color};">
-                     {name[0]}</div>
-                <div style="font-family:'Montserrat',sans-serif;font-weight:700;
-                     color:#EAD7A1;font-size:0.77rem;line-height:1.4;">{name}</div>
-                <div style="color:#555;font-size:0.71rem;margin-top:5px;">{role}</div>
+    st.markdown("<br><h3 style='margin-bottom:1rem;'>DEVELOPER</h3>", unsafe_allow_html=True)
+    st.markdown("""
+    <div class="card" style="border-top:2px solid #D4AF37;max-width:360px;">
+        <div style="display:flex;align-items:center;gap:16px;">
+            <div style="width:52px;height:52px;border-radius:50%;
+                 background:#D4AF3722;border:2px solid #D4AF3766;
+                 display:flex;align-items:center;justify-content:center;
+                 font-family:Montserrat,sans-serif;font-weight:800;
+                 font-size:1.2rem;color:#D4AF37;flex-shrink:0;">S</div>
+            <div>
+                <div style="font-family:'Montserrat',sans-serif;font-weight:800;
+                     color:#D4AF37;font-size:0.95rem;letter-spacing:0.05em;">
+                     Sourav Burman</div>
+                <div style="color:#666;font-size:0.78rem;margin-top:3px;">
+                     AI Developer · CS Engineer · Samsung R&D Trainee</div>
+                <div style="margin-top:10px;display:flex;flex-direction:column;gap:5px;">
+                    <a href="mailto:thesouravburman@gmail.com"
+                       style="color:#FF4757;font-size:0.77rem;font-family:Montserrat,sans-serif;
+                       font-weight:700;text-decoration:none;letter-spacing:0.04em;">
+                       ✉ thesouravburman@gmail.com</a>
+                    <div style="display:flex;gap:12px;">
+                        <a href="https://github.com/thesouravburman"
+                           style="color:#1D6FF0;font-size:0.77rem;font-family:Montserrat,sans-serif;
+                           font-weight:700;text-decoration:none;letter-spacing:0.04em;">
+                           GitHub</a>
+                        <span style="color:#333;">·</span>
+                        <a href="https://linkedin.com/in/sourav-burman"
+                           style="color:#00C896;font-size:0.77rem;font-family:Montserrat,sans-serif;
+                           font-weight:700;text-decoration:none;letter-spacing:0.04em;">
+                           LinkedIn</a>
+                    </div>
+                </div>
             </div>
-            """, unsafe_allow_html=True)
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
 
     st.markdown("""<br>
     <div class="card">
@@ -478,9 +463,11 @@ st.markdown("""
 <div style="text-align:center;padding:10px 0;font-family:'Poppins',sans-serif;
      font-size:0.73rem;color:#333;letter-spacing:0.06em;">
     Built by <span style="color:#D4AF37;font-weight:600;">Sourav Burman</span>
-    &nbsp;·&nbsp; Samsung R&D Innovation Campus
-    &nbsp;·&nbsp;
+    &nbsp;·&nbsp; Samsung R&D Innovation Campus &nbsp;·&nbsp;
     <a href="https://github.com/thesouravburman/vehicle-classifier"
        style="color:#1D6FF0;text-decoration:none;">GitHub Repo</a>
+    &nbsp;·&nbsp;
+    <a href="mailto:thesouravburman@gmail.com"
+       style="color:#FF4757;text-decoration:none;">Email</a>
 </div>
 """, unsafe_allow_html=True)
